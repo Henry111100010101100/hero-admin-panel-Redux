@@ -1,0 +1,14 @@
+.hero_item-enter {
+    opacity: 0;
+  }
+  .hero_item-enter-active {
+    opacity: 1;
+    transition: opacity 500ms;
+  }
+  .hero_item-exit {
+    opacity: 1;
+  }
+  .hero_item-exit-active {
+    opacity: 0;
+    transition: opacity 500ms;
+  }

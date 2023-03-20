@@ -1,0 +1,66 @@
+{
+  "heroes": [
+    {
+      "id": 1,
+      "name": "Первый герой",
+      "description": "Первый герой в рейтинге!",
+      "element": "fire"
+    },
+    {
+      "id": 2,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
+    },
+    {
+      "id": 3,
+      "name": "Морской герой",
+      "description": "Как аквамен, но не из DC",
+      "element": "water"
+    },
+    {
+      "id": 4,
+      "name": "Повелительница Земли",
+      "description": "Один прогиб - и ты погиб",
+      "element": "earth"
+    },
+    {
+      "id": "8a221a8b-136e-4488-ae30-458469309eff",
+      "name": "Король Огня",
+      "description": "Испепеляет одним лишь взглядом\n\n",
+      "element": "fire"
+    }
+  ],
+  "filters": [
+    {
+      "id": 0,
+      "name": "all",
+      "label": "Все",
+      "classes": "btn btn-outline-dark"
+    },
+    {
+      "id": 1,
+      "name": "fire",
+      "label": "Огонь",
+      "classes": "btn btn-danger"
+    },
+    {
+      "id": 2,
+      "name": "water",
+      "label": "Вода",
+      "classes": "btn btn-primary"
+    },
+    {
+      "id": 3,
+      "name": "wind",
+      "label": "Ветер",
+      "classes": "btn btn-success"
+    },
+    {
+      "id": 4,
+      "name": "earth",
+      "label": "Земля",
+      "classes": "btn btn-secondary"
+    }
+  ]
+}
