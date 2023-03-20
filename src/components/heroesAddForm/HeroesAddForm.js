@@ -1,19 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from "uuid";
 
 import {useHttp} from '../../hooks/http.hook';
 import { heroAdd } from '../../actions';
 
-// Задача для этого компонента:
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-// данных из фильтров
 
 const HeroesAddForm = () => {
 
@@ -24,7 +15,7 @@ const HeroesAddForm = () => {
     const [element, setElement] = useState('');
     const [adding, setAdding] = useState(false);
 
-    const {filters} = useSelector(state => state);
+    const {filters} = useSelector(state => state.filters);
     const dispatch = useDispatch();
 
     const renderFiltersList = (arr) => {
