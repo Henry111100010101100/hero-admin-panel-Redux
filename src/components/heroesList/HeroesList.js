@@ -45,6 +45,7 @@ const HeroesList = () => {
         .then(data => console.log(data, "deleted"))
         .then(dispatch(heroDelete(id)))
         .catch(error => console.log(error))
+        // eslint-disable-next-line
     }, [request])
 
     if (heroesLoadingStatus === "loading") {
@@ -76,13 +77,8 @@ const HeroesList = () => {
         })
 
     }
-
-    console.log(filteredHeroes);
     
     const elements = renderHeroesList(filteredHeroes);
-
-    console.log(elements);
-
 
     return (
         <TransitionGroup component="ul">
