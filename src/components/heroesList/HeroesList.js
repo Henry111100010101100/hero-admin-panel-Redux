@@ -2,29 +2,36 @@ import {useHttp} from '../../hooks/http.hook';
 import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { createSelector } from 'reselect';
 
-import { heroesFetching, heroesFetched, heroDelete, heroesFetchingError } from '../../actions';
+import { heroesFetch, heroDelete,} from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
 import './heroesList.css';
 
-// Задача для этого компонента:
-// При клике на "крестик" идет удаление персонажа из общего состояния
-// Усложненная задача:
-// Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-    const {filteredHeroes, heroesLoadingStatus} = useSelector(state => state);
+
+    const filteredHeroesSelector = createSelector(
+        (state) => state.heroes.heroes,
+        (state) => state.filters.activeFilter,
+        (heroes, activeFilter) => {
+            if (activeFilter === 'all') {
+                return heroes;
+            } else {
+                return heroes.filter(item => item.element === activeFilter)
+            }
+        }
+    )
+
+    const filteredHeroes = useSelector(filteredHeroesSelector)
+    const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
     useEffect(() => {
-        dispatch(heroesFetching());
-        request("http://localhost:3001/heroes")
-            .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
-
+        dispatch(heroesFetch(request));
         // eslint-disable-next-line
     }, []);
 
@@ -34,6 +41,7 @@ const HeroesList = () => {
         .then(data => console.log(data, "deleted"))
         .then(dispatch(heroDelete(id)))
         .catch(error => console.log(error))
+        // eslint-disable-next-line
     }, [request])
 
     if (heroesLoadingStatus === "loading") {
@@ -65,13 +73,8 @@ const HeroesList = () => {
         })
 
     }
-
-    console.log(filteredHeroes);
     
     const elements = renderHeroesList(filteredHeroes);
-
-    console.log(elements);
-
 
     return (
         <TransitionGroup component="ul">
