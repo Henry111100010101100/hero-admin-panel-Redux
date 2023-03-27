@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import classNames from "classnames";
 
 import { useHttp } from "../../hooks/http.hook";
-import { filtersFetch, activeFilterChanged } from "../../actions";
+import { filtersFetch } from "../../actions";
+import { activeFilterChanged } from "./filtersSlice";
 import Spinner from "../spinner/Spinner";
 
 
