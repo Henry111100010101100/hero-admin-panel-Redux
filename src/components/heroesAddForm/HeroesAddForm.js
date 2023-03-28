@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from "uuid";
 
 import {useHttp} from '../../hooks/http.hook';
 import { heroAdd } from '../heroesList/heroesSlice';
+import { selectAll } from "../heroesFilters/filtersSlice";
+import store from "../../store";
 
 
 const HeroesAddForm = () => {
@@ -15,7 +17,7 @@ const HeroesAddForm = () => {
     const [element, setElement] = useState('');
     const [adding, setAdding] = useState(false);
 
-    const {filters} = useSelector(state => state.filters);
+    const filters = selectAll(store.getState());
     const dispatch = useDispatch();
 
     const renderFiltersList = (arr) => {
