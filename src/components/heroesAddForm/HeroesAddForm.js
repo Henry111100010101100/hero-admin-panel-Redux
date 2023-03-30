@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from "uuid";
 
-import {useHttp} from '../../hooks/http.hook';
-import { heroAdd } from '../heroesList/heroesSlice';
+import { useAddHeroMutation } from "../../api/apiSlice";
 import { selectAll } from "../heroesFilters/filtersSlice";
 import store from "../../store";
 
 
 const HeroesAddForm = () => {
 
-    const {request} = useHttp();
+    const [addHero] = useAddHeroMutation();
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -18,7 +16,6 @@ const HeroesAddForm = () => {
     const [adding, setAdding] = useState(false);
 
     const filters = selectAll(store.getState());
-    const dispatch = useDispatch();
 
     const renderFiltersList = (arr) => {
         if (arr.length === 0) {
@@ -62,14 +59,13 @@ const HeroesAddForm = () => {
             element
         }
 
-        request("http://localhost:3001/heroes", "POST", JSON.stringify(hero))
-            .then(dispatch(heroAdd(hero)))
-            .catch(error => console.log(error))
-            .finally(() => setAdding(false));
-
+        addHero(hero).unwrap();
+        
         setName('');
         setDescription('');
         setElement('');
+
+        setTimeout(() => {setAdding(false)}, 500)
     }
 
     return (
@@ -110,10 +106,6 @@ const HeroesAddForm = () => {
                     value={element}
                     onChange={(e) => handleElement(e)}>
                     <option >Я владею элементом...</option>
-                    {/* <option value="fire">Огонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option> */}
                     {filtersList}
                 </select>
             </div>
